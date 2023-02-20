@@ -1,16 +1,20 @@
 const express = require('express');
 const app = express();
-const moment = require('moment');
 const dotenv = require('dotenv');
 const { verify_session } = require('./auxiliar');
 const connection = require('./connection/database');
 
 dotenv.config();
 app.set('port', process.env.PORT || 3000);
+app.use(express.static(__dirname + '/dist'));
 app.use('/', require('./routes/credentials'));
 
 app.listen(app.get('port'), () => {
     console.log('Server listening on port: ', app.get('port'));
+});
+
+app.get('/', function(req, resp) {
+    resp.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
 app.get('/home_info', verify_session, function(req, resp) {
