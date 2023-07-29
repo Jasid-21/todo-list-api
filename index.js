@@ -5,7 +5,7 @@ const { verify_session } = require('./auxiliar');
 const connection = require('./connection/database');
 
 dotenv.config();
-app.set('port', process.env.PORT || 3000);
+app.set('port', Number(process.env.PORT) || 3000);
 app.use(express.static(__dirname + '/dist'));
 app.use('/', require('./routes/credentials'));
 
